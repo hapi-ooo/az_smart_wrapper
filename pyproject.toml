@@ -1,0 +1,27 @@
+[tool.poetry]
+name = "az-wrapper-cli"
+version = "0.1.0"
+description = ""
+authors = ["Hazel <hapi.csc@gmail.com>"]
+readme = "README.md"
+packages = [{include = "app"}]
+
+[tool.poetry.scripts]
+dev = "app.main:main"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+prompt_toolkit = "*"
+rich = "*"
+# fastapi = "^0.116.1"
+# uvicorn = "^0.35.0"
+# python-dotenv = "^1.0.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.0"
+# httpx = "^0.28.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
