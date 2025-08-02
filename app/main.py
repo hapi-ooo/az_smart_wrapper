@@ -1,11 +1,10 @@
 import subprocess
 from prompt_toolkit import PromptSession
-from prompt_toolkit.completion import WordCompleter
 from prompt_toolkit.history import FileHistory
 from rich import print
 import shlex
 
-from .abc_completer import abc_completer
+from .az_completer import az_completer
 from .key_binds import bindings
 
 
@@ -28,15 +27,15 @@ def run_az_command(command: str):
     print(f"[bold red]Error:[/bold red] {e}")
 
 def main():
-  # p1 = subprocess.run('which az', shell=True, capture_output=True, text=True)
-  # if p1.returncode != 0:
-  #   print('[bold red]az command not found- please ensure az is in your path[/bold red]')
-  #   # return -1
+  p1 = subprocess.run('which az', shell=True, capture_output=True, text=True)
+  if p1.returncode != 0:
+    print('[bold red]az command not found- please ensure az is in your path[/bold red]')
+    # return -1
 
   session = PromptSession(
     history=FileHistory('.az_wrapper_history'),
     key_bindings=bindings,
-    completer=abc_completer,
+    completer=az_completer,
     complete_while_typing=True
     )
   print("[bold blue]Azure CLI Interactive Wrapper[/bold blue]")
@@ -49,13 +48,6 @@ def main():
         break
       if not text.strip():
         continue
-      # cmd_parts = text.split(' ')
-      # if len(cmd_parts) > 1:
-      #   print('[bold red]Invalid[/bold red]')
-      #   continue
-      # if cmd_parts[0] not in commands:
-      #   print('[bold red]Invalid[/bold red]')
-      #   continue
       run_az_command(text) 
     except KeyboardInterrupt:
       break
